@@ -21,11 +21,12 @@ requirements:
   build:
     - {{ compiler('c') }}
   host:
-    - python
+    - python >=3.6
     - cython
+    - setuptools >=18.0
     - pip
   run:
-    - python
+    - python >=3.6
     - pytz
 
 test:
