@@ -49,6 +49,7 @@ about:
   license_file: LICENSE
   summary: Fast read/write of AVRO files
   dev_url: https://github.com/fastavro/fastavro
+  doc_url: https://fastavro.readthedocs.io/en/latest/
 
 extra:
   recipe-maintainers:
