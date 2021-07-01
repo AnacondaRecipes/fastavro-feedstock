@@ -22,24 +22,30 @@ requirements:
     - {{ compiler('c') }}
     - python
   host:
-    - python
+    - python >=3.6
     - cython
-    - setuptools >=18.0
     - pip
+    - setuptools >=18.0
+    - wheel
   run:
-    - python
+    - python >=3.6
     - pytz
 
 test:
   requires:
     - nose
     - flake8
+    - pip
   imports:
     - fastavro
+    - fastavro.io
+  commands:
+    - pip check
 
 about:
   home: https://github.com/fastavro/fastavro
   license: MIT
+  license_family: MIT
   license_file: LICENSE
   summary: Fast read/write of AVRO files
   dev_url: https://github.com/fastavro/fastavro
