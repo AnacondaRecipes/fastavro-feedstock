@@ -1,4 +1,4 @@
-{% set version = "1.4.1" %}
+{% set version = "1.4.2" %}
 
 package:
   name: fastavro
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/f/fastavro/fastavro-{{ version }}.tar.gz
-  sha256: 237a741668316a2aadb14ba0532666a305dd14b4043aace89bcb0c6419c08162
+  sha256: 41a15918344723748ca2f3f3887d72d22aaeed4578420d054170aaf9f9c0ec9f
 
 build:
   number: 0
@@ -22,27 +22,34 @@ requirements:
     - {{ compiler('c') }}
     - python
   host:
-    - python
+    - python >=3.6
     - cython
-    - setuptools >=18.0
     - pip
+    - setuptools >=18.0
+    - wheel
   run:
-    - python
+    - python >=3.6
     - pytz
 
 test:
   requires:
     - nose
     - flake8
+    - pip
   imports:
     - fastavro
+    - fastavro.io
+  commands:
+    - pip check
 
 about:
   home: https://github.com/fastavro/fastavro
   license: MIT
+  license_family: MIT
   license_file: LICENSE
   summary: Fast read/write of AVRO files
   dev_url: https://github.com/fastavro/fastavro
+  doc_url: https://fastavro.readthedocs.io/en/latest/
 
 extra:
   recipe-maintainers:
