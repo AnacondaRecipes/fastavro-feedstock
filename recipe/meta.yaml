@@ -22,13 +22,13 @@ requirements:
     - {{ compiler('c') }}
     - python
   host:
-    - python >=3.6
+    - python
     - cython
     - pip
     - setuptools >=18.0
     - wheel
   run:
-    - python >=3.6
+    - python
     - pytz
 
 test:
