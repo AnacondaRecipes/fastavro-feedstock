@@ -10,6 +10,7 @@ source:
 
 build:
   number: 0
+  skip: True  # [py<36]
   script:
     - export FASTAVRO_USE_CYTHON=1  # [not win]
     - set FASTAVRO_USE_CYTHON=1  # [win]
@@ -20,7 +21,6 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    - python
   host:
     - python
     - cython
@@ -33,8 +33,8 @@ requirements:
 
 test:
   requires:
-    - nose
     - flake8
+    - mypy
     - pip
   imports:
     - fastavro
