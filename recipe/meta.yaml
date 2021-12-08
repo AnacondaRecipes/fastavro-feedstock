@@ -34,7 +34,6 @@ requirements:
 test:
   requires:
     - flake8
-    - mypy
     - pip
   imports:
     - fastavro
