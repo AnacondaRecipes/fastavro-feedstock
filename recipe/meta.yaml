@@ -10,6 +10,7 @@ source:
 
 build:
   number: 0
+  # trigger: 1
   skip: True  # [py<36]
   script:
     - export FASTAVRO_USE_CYTHON=1  # [not win]
