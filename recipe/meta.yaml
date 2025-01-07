@@ -10,7 +10,7 @@ source:
   sha256: f37011d66de8ba81b26760db0478009a14c08ebfd34269b3390abfd4616b308f
 
 build:
-  number: 0
+  number: 1
   skip: True  # [py<38]
   script:
     - export FASTAVRO_USE_CYTHON=1  # [not win]
