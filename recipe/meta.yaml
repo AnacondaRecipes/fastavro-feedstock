@@ -31,6 +31,12 @@ requirements:
   run:
     - python
 
+{% set ignore_tests = "" %}
+# Missing dependency zlib_ng
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_block_reader.py" %}
+# Cython specific issue: See details in https://github.com/fastavro/fastavro/issues/760#issuecomment-2909047759
+{% set ignore_tests = ignore_tests + " --deselect=tests/test_fastavro.py::test_regular_vs_ordered_dict_record_typeerror" %}
+
 test:
   source_files:
     - tests
@@ -48,14 +54,6 @@ test:
   commands:
     - pip check
     - fastavro --help
-
-    {% set ignore_tests = "" %}
-    # Missing dependency zlib_ng
-    {% set ignore_tests = ignore_tests + " --ignore=tests/test_block_reader.py" %}
-
-    # Cython specific issue: See details in https://github.com/fastavro/fastavro/issues/760#issuecomment-2909047759
-    {% set ignore_tests = ignore_tests + " --deselect=tests/test_fastavro.py::test_regular_vs_ordered_dict_record_typeerror" %}
-
     - pytest -vv {{ ignore_tests }} tests
 
 about:
