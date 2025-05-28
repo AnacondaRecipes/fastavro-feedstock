@@ -1,17 +1,17 @@
 {% set name = "fastavro" %}
-{% set version = "1.9.1" %}
+{% set version = "1.11.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/fastavro-{{ version }}.tar.gz
-  sha256: f37011d66de8ba81b26760db0478009a14c08ebfd34269b3390abfd4616b308f
+  url: https://github.com/{{ name }}/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
+  sha256: 017df0b9ab88b7050aaeaa0f740bdcd44e423a613caeb5143ae643a99f10b017
 
 build:
-  number: 1
-  skip: True  # [py<38]
+  number: 0
+  skip: True  # [py<39]
   script:
     - export FASTAVRO_USE_CYTHON=1  # [not win]
     - set FASTAVRO_USE_CYTHON=1  # [win]
@@ -31,15 +31,30 @@ requirements:
   run:
     - python
 
+{% set ignore_tests = "" %}
+# Missing dependency zlib_ng
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_block_reader.py" %}
+# Cython specific issue: See details in https://github.com/fastavro/fastavro/issues/760#issuecomment-2909047759
+{% set ignore_tests = ignore_tests + " --deselect=tests/test_fastavro.py::test_regular_vs_ordered_dict_record_typeerror" %}
+
 test:
+  source_files:
+    - tests
   requires:
     - pip
+    - pytest
+    - numpy
+    - cramjam
+    - zstandard  #[not win]
+    - lz4  # [not win]
+    - pandas
   imports:
     - fastavro
     - fastavro.io
   commands:
     - pip check
     - fastavro --help
+    - pytest -vv {{ ignore_tests }} tests
 
 about:
   home: https://github.com/fastavro/fastavro
