@@ -1,5 +1,5 @@
 {% set name = "fastavro" %}
-{% set version = "1.11.1" %}
+{% set version = "1.12.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,11 @@ package:
 
 source:
   url: https://github.com/{{ name }}/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
-  sha256: 017df0b9ab88b7050aaeaa0f740bdcd44e423a613caeb5143ae643a99f10b017
+  sha256: 68f48aca2dd832c6cc0fb37a098d38e1c4f63fdcf236eea9aa7fa2fdcea62825
 
 build:
   number: 0
-  skip: True  # [py<39]
+  skip: true  # [py<39]
   script:
     - export FASTAVRO_USE_CYTHON=1  # [not win]
     - set FASTAVRO_USE_CYTHON=1  # [win]
@@ -21,6 +21,7 @@ build:
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
   host:
     - python
@@ -50,9 +51,27 @@ test:
     - pandas
   imports:
     - fastavro
-    - fastavro.io
+    - fastavro.__main__
+    - fastavro._logical_writers_py
+    - fastavro._read_common
+    - fastavro._schema_common
+    - fastavro._write_common
+    - fastavro.const
+    - fastavro.io.binary_decoder
+    - fastavro.io.json_decoder
+    - fastavro.io.json_encoder
+    - fastavro.io.symbols
+    - fastavro.read
+    - fastavro.repository
+    - fastavro.repository.base
+    - fastavro.repository.flat_dict
+    - fastavro.schema
+    - fastavro.utils
+    - fastavro.validation
+    - fastavro.write
   commands:
     - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - fastavro --help
     - pytest -vv {{ ignore_tests }} tests
 
