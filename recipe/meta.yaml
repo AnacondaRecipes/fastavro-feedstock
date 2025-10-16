@@ -1,5 +1,5 @@
 {% set name = "fastavro" %}
-{% set version = "1.12.0" %}
+{% set version = "1.12.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/{{ name }}/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
-  sha256: 68f48aca2dd832c6cc0fb37a098d38e1c4f63fdcf236eea9aa7fa2fdcea62825
+  sha256: a737c7a64b8ff47b92c98b15c7d85b92e442bb4bf37692dcda49eb9ce7e3eb89
 
 build:
   number: 0
