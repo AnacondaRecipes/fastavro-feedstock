@@ -46,6 +46,7 @@ test:
     - numpy
     - cramjam
     - zstandard  #[not win]
+    - backports.zstd
     - lz4  # [not win]
     - pandas
   imports:
