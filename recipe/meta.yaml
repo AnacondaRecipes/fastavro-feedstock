@@ -1,13 +1,18 @@
 {% set name = "fastavro" %}
-{% set version = "1.12.1" %}
+{% set version = "1.13.1" %}
+{% set ignore_tests = "" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_block_reader.py" %}
+{% set ignore_tests = 'ignore_tests + " --deselect=tests/test_fastavro.py::test_regular_vs_ordered_dict_record_typeerror"' %}
 
+# Missing dependency zlib_ng
+# Cython specific issue: See details in https://github.com/fastavro/fastavro/issues/760#issuecomment-2909047759
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
   url: https://github.com/{{ name }}/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
-  sha256: a737c7a64b8ff47b92c98b15c7d85b92e442bb4bf37692dcda49eb9ce7e3eb89
+  sha256: b32f468a931ec44efc1ec26a415db3803e0a6594b16f50f02bdee1b169a44e68
 
 build:
   number: 0
@@ -31,12 +36,6 @@ requirements:
     - wheel
   run:
     - python
-
-{% set ignore_tests = "" %}
-# Missing dependency zlib_ng
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_block_reader.py" %}
-# Cython specific issue: See details in https://github.com/fastavro/fastavro/issues/760#issuecomment-2909047759
-{% set ignore_tests = ignore_tests + " --deselect=tests/test_fastavro.py::test_regular_vs_ordered_dict_record_typeerror" %}
 
 test:
   source_files:
